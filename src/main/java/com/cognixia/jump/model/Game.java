@@ -121,7 +121,7 @@ public class Game implements Serializable {
 		return purchases;
 	}
 
-	public void setUsers(Set<Purchase> purchases) {
+	public void setPurchases(Set<Purchase> purchases) {
 		this.purchases = purchases;
 	}
 
