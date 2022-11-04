@@ -27,12 +27,12 @@ public class GameController {
 	@Autowired
 	GameService service;
 	
-	@GetMapping("/games")
+	@GetMapping("/game")
 	public List<Game> getGames() {
 		return repo.findAll();
 	}
 	
-	@PostMapping("/games")
+	@PostMapping("/game")
 	public ResponseEntity<?> addGame(@RequestBody Game game) {
 		
 		game.setId(null);
@@ -42,7 +42,7 @@ public class GameController {
 		return ResponseEntity.status(201).body(added);
 	}
 	
-	@PutMapping("/games")
+	@PutMapping("/game")
 	public ResponseEntity<?> updateStock(@RequestBody Game game) throws Exception {
 		
 		Game updated = service.updateStock(game);
@@ -51,7 +51,7 @@ public class GameController {
 		
 	}
 	
-	@DeleteMapping("/games")
+	@DeleteMapping("/game")
 	public ResponseEntity<?> deleteGame(@RequestBody Game game) throws Exception {
 		
 		Game deleted = service.deleteGame(game);
@@ -60,7 +60,7 @@ public class GameController {
 		
 	}
 
-	@DeleteMapping("/games/delete")
+	@DeleteMapping("/game/delete")
 	public ResponseEntity<?> deleteGameById(@RequestParam(name="id") Long id) 
 			throws Exception {
 		
@@ -69,6 +69,5 @@ public class GameController {
 		return ResponseEntity.status(200).body(deleted);
 		
 	}
-	
-	
+		
 }

@@ -69,4 +69,20 @@ public class GameService {
 		}
 	}
 
+
+//	public Game purchaseGameById(Long id) throws ResourceNotFoundException {
+//		Optional<Game> selected = repo.findById(id);
+//		
+//		if (selected.isPresent()) {
+//			
+//			Game toPurchase = selected.get();
+//			
+//			repo.deleteById(toDelete.getId());
+//			
+//			return toDelete;
+//		} else {
+//			throw new ResourceNotFoundException("Game with id " + id.toString() + " not Found");
+//		}
+//	}
+
 }
