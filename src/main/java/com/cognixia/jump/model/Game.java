@@ -11,11 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Game implements Serializable {
@@ -41,13 +40,12 @@ public class Game implements Serializable {
 	private int qty;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP) // TODO check if correct
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated;
 	
-	//Many to Many with Users
-	@JsonIgnoreProperties("games")
-	@ManyToMany(mappedBy = "games",fetch = FetchType.EAGER)
-	private Set<User> users = new HashSet<>();
+	//One to Many with Purchases
+	@OneToMany(mappedBy = "game",fetch = FetchType.EAGER)
+	private Set<Purchase> purchases = new HashSet<>();
 
 	
 	public Game() {
@@ -57,10 +55,10 @@ public class Game implements Serializable {
 		this.price = 0.0;
 		this.qty = 0;
 		this.updated = new Date();
-		this.users = null;
+		this.purchases = null;
 	}
 
-	public Game(Long id, String name, String esrb, double price, int qty, Date updated, Set<User> users) {
+	public Game(Long id, String name, String esrb, double price, int qty, Date updated, Set<Purchase> purchases) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -68,7 +66,7 @@ public class Game implements Serializable {
 		this.price = price;
 		this.qty = qty;
 		this.updated = updated;
-		this.users = users;
+		this.purchases = purchases;
 	}
 
 	public Long getId() {
@@ -119,18 +117,18 @@ public class Game implements Serializable {
 		this.updated = updated;
 	}
 
-	public Set<User> getUsers() {
-		return users;
+	public Set<Purchase> getPurchases() {
+		return purchases;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUsers(Set<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", name=" + name + ", esrb=" + esrb + ", price=" + price + ", qty=" + qty
-				+ ", updated=" + updated + ", users=" + users + "]";
+				+ ", updated=" + updated + ", purchases=" + purchases + "]";
 	}
 	
 }

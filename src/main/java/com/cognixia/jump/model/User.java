@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -75,14 +76,8 @@ public class User implements Serializable {
 	@Column(columnDefinition = "boolean default true")
 	private boolean enabled;
 	
-	//Many To Many with Games
-	@JsonIgnoreProperties("users")
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "purchase",
-			joinColumns = {@JoinColumn(name = "user_id")},
-			inverseJoinColumns = {@JoinColumn(name = "game_id")}
-	)
+	//One To Many with Purchases
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<Game> games = new HashSet<>();
 	
 	public User() {
