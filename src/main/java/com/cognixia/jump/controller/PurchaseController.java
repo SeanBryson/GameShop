@@ -1,5 +1,6 @@
 package com.cognixia.jump.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognixia.jump.exception.NotEnoughStockException;
 import com.cognixia.jump.filter.JwtRequestFilter;
 import com.cognixia.jump.model.Game;
+import com.cognixia.jump.model.Purchase;
 import com.cognixia.jump.repository.GameRepository;
 import com.cognixia.jump.service.GameService;
 import com.cognixia.jump.service.MyUserDetails;
+import com.cognixia.jump.service.PurchaseService;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.UserService;
@@ -33,18 +37,9 @@ import com.cognixia.jump.util.JwtUtil;
 @RequestMapping("/api/purchase")
 public class PurchaseController {
 
-	@Autowired 
-	GameRepository gameRepo;
-	
-	@Autowired 
-	UserRepository userRepo;
-	
 	@Autowired
-	GameService gameServ;
-	
-	@Autowired
-	UserService userServ;
-	
+	PurchaseService service;
+
 	@Autowired
 	JwtRequestFilter filter;
 	
@@ -65,19 +60,14 @@ public class PurchaseController {
 	}
 	
 	@PostMapping("/game-by-id/user")
-	public ResponseEntity<?> purchaseGameByIds(@RequestParam(name="id") Long game_id, @RequestParam(name="user_id") Long user_id) 
+	public ResponseEntity<?> purchaseGameIdsAndQty(@RequestParam(name="id") Long game_id, 
+			@RequestParam(name="user_id") Long user_id, @RequestParam(name="qty") int qty) 
 		throws Exception {
-		
-		Optional<User> user = userRepo.findById(user_id);
-		Optional<Game> game = gameRepo.findById(game_id);
-		
-		if (user.isPresent() && game.isPresent()) {
-			Game gameAdd = game.get();
 			
-			User userAdd = user.get();
-		}
 		
-		throw new MethodArgumentNotValidException(null, null);
+		Purchase completed = service.purchaseGameIdsAndQty(game_id, user_id, qty);
+		
+		return ResponseEntity.status(200).body(completed);
 		
 //		filter.doFilter(request, response, filterChain);
 //		

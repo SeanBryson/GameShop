@@ -70,6 +70,7 @@ public class User implements Serializable {
 	
 	// will store the role as a string in the db
 	@Column(updatable = false, nullable = false)
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 

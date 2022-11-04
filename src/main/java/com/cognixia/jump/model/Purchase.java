@@ -32,7 +32,7 @@ public class Purchase {
 	private int qty;
 	
 	@Column(nullable = false)
-	private double price;
+	private double total;
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -43,17 +43,17 @@ public class Purchase {
 		this.user = null;
 		this.game = null;
 		this.qty = 0;
-		this.price = 0.0;
+		this.total = 0.0;
 		this.time = new Date();
 	}
 	
-	public Purchase(Long id, User user, Game game, int qty, double price, Date time) {
+	public Purchase(Long id, User user, Game game, int qty, double total, Date time) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.game = game;
 		this.qty = qty;
-		this.price = price;
+		this.total = total;
 		this.time = time;
 	}
 
@@ -89,12 +89,12 @@ public class Purchase {
 		this.qty = qty;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getTotal() {
+		return total;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	public Date getTime() {
@@ -107,7 +107,7 @@ public class Purchase {
 
 	@Override
 	public String toString() {
-		return "Purchase [id=" + id + ", user=" + user + ", game=" + game + ", qty=" + qty + ", price=" + price
+		return "Purchase [id=" + id + ", user=" + user + ", game=" + game + ", qty=" + qty + ", total=" + total
 				+ ", time=" + time + "]";
 	}	
 	
