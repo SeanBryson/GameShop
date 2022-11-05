@@ -29,9 +29,10 @@ public class GameController {
 	@Autowired
 	GameService service;
 	
-	@Operation(summary = "Get all the students in Kudang Primary School", 
-			   description = "Gets all the students from the student table in the spring_db database. Each student grabbed has an id, title, author, and date it was published.")
-
+	@Operation(summary = "Get all the games in the current inventory", 
+			   description = "Gets all the games from the game table in the spring_db database. "
+			   		+ "Each game grabbed has an id, name, esrb rating, price, date it was "
+			   		+ "last updated, and list previous purchases")
 	@GetMapping()
 	public List<Game> getGames() {
 		return repo.findAll();
@@ -56,16 +57,8 @@ public class GameController {
 		
 	}
 	
-	@DeleteMapping()
-	public ResponseEntity<?> deleteGame(@RequestBody Game game) throws Exception {
-		
-		Game deleted = service.deleteGame(game);
-		
-		return ResponseEntity.status(200).body(deleted);
-		
-	}
 
-	@DeleteMapping("delete")
+	@DeleteMapping()
 	public ResponseEntity<?> deleteGameById(@RequestParam(name="id") Long id) 
 			throws Exception {
 		

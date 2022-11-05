@@ -57,6 +57,22 @@ public class GlobalExceptionHandler {
 		
 	}
 	
+	@ExceptionHandler(NotOldEnoughException.class) 
+	public ResponseEntity<?> notOldEnough(NotOldEnoughException ex, WebRequest request) {
+		
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		
+		return ResponseEntity.status(403).body(errorDetails);
+	}
+	
+	@ExceptionHandler(NotEnoughStockException.class) 
+	public ResponseEntity<?> notEnoughStock(NotEnoughStockException ex, WebRequest request) {
+		
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		
+		return ResponseEntity.status(404).body(errorDetails);
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> exception(Exception ex, WebRequest request) {
 		

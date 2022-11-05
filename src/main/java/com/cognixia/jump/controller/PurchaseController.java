@@ -75,6 +75,27 @@ public class PurchaseController {
 		
 	}
 	
+	@GetMapping("/game")
+	public ResponseEntity<?> getGameById(@RequestParam(name="game_id") Long game_id) 
+		throws Exception {
+	
+		List<Purchase> found = service.findByGameId(game_id);
+		
+		return ResponseEntity.status(201).body(found);
+		
+	}
+	
+	@GetMapping("/user")
+	public ResponseEntity<?> getUserById(@RequestParam(name="user_id") Long user_id) 
+		throws Exception {
+	
+		List<Purchase> found = service.findByUserId(user_id);
+		
+		return ResponseEntity.status(201).body(found);
+		
+		
+	}
+	
 	
 	
 }

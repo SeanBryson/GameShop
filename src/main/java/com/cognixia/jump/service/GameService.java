@@ -38,22 +38,6 @@ public class GameService {
 	}
 
 
-	public Game deleteGame(Game game) throws ResourceNotFoundException {
-		Optional<Game> selected = repo.findById(game.getId());
-		
-		if (selected.isPresent()) {
-			
-			Game toDelete = selected.get();
-			
-			repo.deleteById(toDelete.getId());
-			
-			return toDelete;
-		} else {
-			throw new ResourceNotFoundException("Game with id " + selected.get().getId().toString() + " not Found");
-		}
-	}
-
-
 	public Game deleteGameById(Long id) throws ResourceNotFoundException {
 	Optional<Game> selected = repo.findById(id);
 		
