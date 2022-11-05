@@ -21,7 +21,7 @@ import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
 	
 	@Autowired
@@ -34,13 +34,13 @@ public class UserController {
 	UserService service;
 
 	
-	@GetMapping("/user")
+	@GetMapping()
 	public List<User> getUsers() {
 		return repo.findAll();
 	}
 	
 	
-	@PostMapping("/user")
+	@PostMapping()
 	public ResponseEntity<?> createUser(@RequestBody User user) {
 		
 		user.setId(null);
@@ -53,7 +53,7 @@ public class UserController {
 		return ResponseEntity.status(201).body(created);
 	}
 	
-	@PutMapping("/user/user-obj")
+	@PutMapping("/update")
 	public ResponseEntity<?> updateUser(@Valid @RequestBody User user) throws Exception {
 		
 		user.setPassword( encoder.encode( user.getPassword() ) );

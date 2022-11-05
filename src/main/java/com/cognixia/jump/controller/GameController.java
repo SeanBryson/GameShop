@@ -17,8 +17,10 @@ import com.cognixia.jump.model.Game;
 import com.cognixia.jump.repository.GameRepository;
 import com.cognixia.jump.service.GameService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/game")
 public class GameController {
 
 	@Autowired
@@ -27,12 +29,15 @@ public class GameController {
 	@Autowired
 	GameService service;
 	
-	@GetMapping("/game")
+	@Operation(summary = "Get all the students in Kudang Primary School", 
+			   description = "Gets all the students from the student table in the spring_db database. Each student grabbed has an id, title, author, and date it was published.")
+
+	@GetMapping()
 	public List<Game> getGames() {
 		return repo.findAll();
 	}
 	
-	@PostMapping("/game")
+	@PostMapping()
 	public ResponseEntity<?> addGame(@RequestBody Game game) {
 		
 		game.setId(null);
@@ -42,7 +47,7 @@ public class GameController {
 		return ResponseEntity.status(201).body(added);
 	}
 	
-	@PutMapping("/game")
+	@PutMapping()
 	public ResponseEntity<?> updateStock(@RequestBody Game game) throws Exception {
 		
 		Game updated = service.updateStock(game);
@@ -51,7 +56,7 @@ public class GameController {
 		
 	}
 	
-	@DeleteMapping("/game")
+	@DeleteMapping()
 	public ResponseEntity<?> deleteGame(@RequestBody Game game) throws Exception {
 		
 		Game deleted = service.deleteGame(game);
@@ -60,7 +65,7 @@ public class GameController {
 		
 	}
 
-	@DeleteMapping("/game/delete")
+	@DeleteMapping("delete")
 	public ResponseEntity<?> deleteGameById(@RequestParam(name="id") Long id) 
 			throws Exception {
 		

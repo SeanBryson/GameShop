@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.cognixia.jump.exception.NotEnoughStockException;
-import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.Game;
 import com.cognixia.jump.model.Purchase;
 import com.cognixia.jump.model.User;
@@ -29,7 +28,7 @@ public class PurchaseService {
 	GameRepository gameRepo;
 	
 	
-	public Purchase purchaseGameIdsAndQty(Long game_id, Long user_id, int qty) throws Exception {
+	public Purchase purchaseGameIdAndQty(Long game_id, Long user_id, int qty) throws Exception {
 		Optional<User> user = userRepo.findById(user_id);
 		Optional<Game> game = gameRepo.findById(game_id);
 		
@@ -46,6 +45,29 @@ public class PurchaseService {
 				Purchase newPurchase = new Purchase(null, userBuy, gameBuy, qty, total, new Date());
 				return repo.save(newPurchase);			
 			} throw new NotEnoughStockException(gameBuy.getName(), qty);
+			
+		} throw new MethodArgumentNotValidException(null, null);
+		
+	}
+
+
+	public Purchase purchaseGameId(Long game_id, Long user_id) 
+		throws Exception {
+		Optional<User> user = userRepo.findById(user_id);
+		Optional<Game> game = gameRepo.findById(game_id);
+		
+		if (user.isPresent() && game.isPresent()) {
+			Game gameBuy = game.get();
+			User userBuy = user.get();
+			Double total = gameBuy.getPrice();
+			
+			if (gameBuy.getQty() > 0) {
+				
+				gameBuy.setQty(gameBuy.getQty()-1);
+				gameRepo.save(gameBuy);
+				Purchase newPurchase = new Purchase(null, userBuy, gameBuy, 1, total, new Date());
+				return repo.save(newPurchase);			
+			} throw new NotEnoughStockException(gameBuy.getName(), 1);
 			
 		} throw new MethodArgumentNotValidException(null, null);
 		

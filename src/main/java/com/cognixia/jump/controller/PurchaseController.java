@@ -25,6 +25,7 @@ import com.cognixia.jump.filter.JwtRequestFilter;
 import com.cognixia.jump.model.Game;
 import com.cognixia.jump.model.Purchase;
 import com.cognixia.jump.repository.GameRepository;
+import com.cognixia.jump.repository.PurchaseRepository;
 import com.cognixia.jump.service.GameService;
 import com.cognixia.jump.service.MyUserDetails;
 import com.cognixia.jump.service.PurchaseService;
@@ -39,42 +40,41 @@ public class PurchaseController {
 
 	@Autowired
 	PurchaseService service;
+	
+	@Autowired
+	PurchaseRepository repo;
 
 	@Autowired
 	JwtRequestFilter filter;
 	
+	@GetMapping()
+	public List<Purchase> getPurchases() {
+		return repo.findAll();
+	}
 	
-	@PostMapping("/game-by-id")
-	public ResponseEntity<?> purchaseGameById(@RequestParam(name="id") Long game_id) 
+	@PostMapping("/id")
+	public ResponseEntity<?> purchaseGameById(@RequestParam(name="id") Long game_id,
+			@RequestParam(name="user_id") Long user_id) 
 		throws Exception {
+	
+		Purchase completed = service.purchaseGameId(game_id, user_id);
 		
+		return ResponseEntity.status(201).body(completed);
 		
-//		filter.doFilter(request, response, filterChain);
-//		
-//				
-//		Game purchased = gameServ.purchaseGameById(game_id);
-//		
-//		return ResponseEntity.status(200).body(purchased);
-		return null;
 		
 	}
 	
-	@PostMapping("/game-by-id/user")
-	public ResponseEntity<?> purchaseGameIdsAndQty(@RequestParam(name="id") Long game_id, 
+	@PostMapping("/id-qty")
+	public ResponseEntity<?> purchaseGameIdsAndQty(@RequestParam(name="game_id") Long game_id, 
 			@RequestParam(name="user_id") Long user_id, @RequestParam(name="qty") int qty) 
 		throws Exception {
-			
 		
-		Purchase completed = service.purchaseGameIdsAndQty(game_id, user_id, qty);
+		Purchase completed = service.purchaseGameIdAndQty(game_id, user_id, qty);
 		
-		return ResponseEntity.status(200).body(completed);
-		
-//		filter.doFilter(request, response, filterChain);
-//		
-//				
-//		Game purchased = gameServ.purchaseGameById(game_id);
-//		
-//		return ResponseEntity.status(200).body(purchased);
+		return ResponseEntity.status(201).body(completed);
 		
 	}
+	
+	
+	
 }

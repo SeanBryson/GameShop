@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,9 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,27 +46,26 @@ public class User implements Serializable {
 	@Column(updatable = true, nullable = false, length = 255)
 	private String password;
 	
-	@Column(name="first_name", updatable = false, nullable = false)
+	@Column(name="first_name", nullable = false)
 	private String firstName;
 	
-	@Column(name="last_name", updatable = false, nullable = false)
+	@Column(name="last_name", nullable = false)
 	private String lastName;
 	
-	@Column(updatable = false, nullable = false, unique = true)
+	@Column(nullable = false, unique = true)
 	@Email(message = "Not a valid email format.")
 	private String email;
 	
-	@Column(name="phone", updatable = true, nullable = false)
+	@Column(name="phone", nullable = false)
 	private String phone;
 	
-	@Column(updatable = false, nullable = false)
+	@Column(nullable = false)
 	@Valid
 	@Temporal(TemporalType.DATE)
 	private Date dob;
 	
 	// will store the role as a string in the db
 	@Column(updatable = false, nullable = false)
-	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
@@ -78,8 +73,9 @@ public class User implements Serializable {
 	private boolean enabled;
 	
 	//One To Many with Purchases
+	@JsonIgnoreProperties("user")
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	private Set<Game> games = new HashSet<>();
+	private Set<Purchase> purchases = new HashSet<>();
 	
 	public User() {
 		this.id = 1L;
@@ -92,12 +88,12 @@ public class User implements Serializable {
 		this.dob = new Date();
 		this.role = null;
 		this.enabled = false;
-		this.games = null;
+		this.purchases = null;
 	}
 	
 	public User(Long id, @Size(min = 1, max = 100) String username, String password, String firstName, String lastName,
-			@Email(message = "Not a valid email format.") String email, String phone, Date dob, Role role,
-			boolean enabled, Set<Game> games) {
+			@Email(message = "Not a valid email format.") String email, String phone, @Valid Date dob, Role role,
+			boolean enabled, Set<Purchase> purchases) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -109,7 +105,7 @@ public class User implements Serializable {
 		this.dob = dob;
 		this.role = role;
 		this.enabled = enabled;
-		this.games = games;
+		this.purchases = purchases;
 	}
 
 	public Long getId() {
@@ -140,20 +136,20 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	public Date getDob() {
+	public @Valid Date getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(@Valid Date dob) {
 		this.dob = dob;
 	}
 
-	public Set<Game> getGames() {
-		return games;
+	public Set<Purchase> getPurchases() {
+		return purchases;
 	}
 
-	public void setGames(Set<Game> games) {
-		this.games = games;
+	public void setPurchases(Set<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	public void setId(Long id) {
@@ -204,7 +200,7 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", phone=" + phone + ", dob=" + dob + ", role=" + role
-				+ ", enabled=" + enabled + ", games=" + games + "]";
+				+ ", enabled=" + enabled + ", purchases=" + purchases + "]";
 	}
 
 }

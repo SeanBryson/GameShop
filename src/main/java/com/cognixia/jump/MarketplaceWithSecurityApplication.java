@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.info.License;
 @OpenAPIDefinition(
 		// provides meta data on the API service
 		info = @Info(
-					title = "Book API", // title of the Documentation page
+					title = "Purchase API With Security", // title of the Documentation page
 					version = "1.0",	// version of your API
 					description = "API that allows you to GET, CREATE, UPDATE, and DELETE.",
 					contact = @Contact(name = "Cognixia", email = "jumpspartans@cognixia.com", url = "https://www.collabera.com"),

@@ -15,6 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
 @Entity
 public class Game implements Serializable {
@@ -28,6 +32,7 @@ public class Game implements Serializable {
 	private Long id;
 	
 	@Column(nullable = false, unique = true)
+	@Schema(description = "Model for game inventory information", example = "Elden Ring", required = true)
 	private String name;
 	
 	@Column(nullable = false)
@@ -44,6 +49,7 @@ public class Game implements Serializable {
 	private Date updated;
 	
 	//One to Many with Purchases
+	@JsonIgnoreProperties("game")
 	@OneToMany(mappedBy = "game",fetch = FetchType.EAGER)
 	private Set<Purchase> purchases = new HashSet<>();
 

@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Purchase {
 
@@ -20,10 +22,12 @@ public class Purchase {
 	@Column(name = "purchase_id")
 	Long id;
 	
+	@JsonIgnoreProperties("purchases")
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	User user;
 	
+	@JsonIgnoreProperties("purchases")
 	@ManyToOne
 	@JoinColumn(name = "game_id")
 	Game game;

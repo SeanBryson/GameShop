@@ -9,7 +9,7 @@ public class NotEnoughStockException extends Exception {
 	}
 
 	public NotEnoughStockException(String game, int qty) {
-		super("Not enough stock of " + game + " available to sell " + qty + " copies");
+		super("Not enough stock of " + game + " available to sell " + qty);
 	}
 
 }

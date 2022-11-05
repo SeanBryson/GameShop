@@ -21,6 +21,21 @@ import com.cognixia.jump.filter.JwtRequestFilter;
 @Configuration
 public class SecurityConfiguration {
 	
+	private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
+
 	@Autowired
 	UserDetailsService userDetailsService;
 	
@@ -39,18 +54,28 @@ public class SecurityConfiguration {
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
+
+//        http.
+//                // ... here goes your custom security configuration
+//                authorizeRequests().
+//                antMatchers(AUTH_WHITELIST).permitAll().  // whitelist Swagger UI resources
+//                // ... here goes your custom security configuration
+//                antMatchers("/**").authenticated();  // require authentication for any endpoint that's not whitelisted
+		
+		
 		http.csrf().disable()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/api/user").permitAll()
 			.antMatchers(HttpMethod.PUT, "/api/user").permitAll() // TODO limit to principal
-			.antMatchers(HttpMethod.PUT, "/api/user/user-obj").access("hasRole('ADMIN')")
-			.antMatchers(HttpMethod.GET, "/api/games").permitAll()
-			.antMatchers(HttpMethod.POST, "/api/games").access("hasRole('ADMIN')")
-			.antMatchers(HttpMethod.PUT, "/api/games").access("hasRole('ADMIN')")
-			.antMatchers(HttpMethod.DELETE, "/api/games").access("hasRole('ADMIN')")
-			.antMatchers(HttpMethod.PUT, "/api/user/user-obj").denyAll()
-			.antMatchers("/authenticate").permitAll()	// anyone can create a JWT w/o needing to have a JWT first
-			.anyRequest().authenticated()	// all APIs, you have to have a user account
+			.antMatchers(HttpMethod.PUT, "/api/user/update").access("hasRole('ADMIN')")
+			.antMatchers(HttpMethod.GET, "/api/game").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/game").access("hasRole('ADMIN')")
+			.antMatchers(HttpMethod.PUT, "/api/game").access("hasRole('ADMIN')")
+			.antMatchers(HttpMethod.DELETE, "/api/game").access("hasRole('ADMIN')")
+			.antMatchers(HttpMethod.GET, "/api/purchase").access("hasRole('ADMIN')")
+			.antMatchers("/authenticate").permitAll() // anyone can create a JWT w/o needing to have a JWT first
+			.antMatchers(AUTH_WHITELIST).permitAll()
+			.anyRequest().authenticated() // all APIs, you have to have a user account
 			.and()
 			.sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS );
 			 // tell spring security to NOT create sessions

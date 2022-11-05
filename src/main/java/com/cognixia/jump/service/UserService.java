@@ -18,23 +18,10 @@ public class UserService {
 	
 	public User updateUser(User user) throws UsernameNotFoundException {
 		
-		Optional<User> curUser = repo.findByUsername(user.getUsername());
+		Optional<User> curUser = repo.findById(user.getId());
 		
 		if (curUser.isPresent()) {
-			User existingUser = curUser.get();
-			
-			existingUser.setUsername(user.getUsername());
-			existingUser.setPassword(user.getPassword());
-			existingUser.setFirstName(user.getFirstName());
-			existingUser.setLastName(user.getLastName());
-			existingUser.setEmail(user.getEmail());
-			existingUser.setDob(user.getDob());
-			existingUser.setPhone(user.getPhone());
-			existingUser.setRole(user.getRole());
-			existingUser.setEnabled(user.isEnabled());
-			existingUser.setGames(user.getGames());
-			
-			return repo.save(existingUser);
+			return repo.save(user);
 		} else {
 			throw new UsernameNotFoundException(user.getUsername());
 		}
