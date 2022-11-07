@@ -68,11 +68,13 @@ public class SecurityConfiguration {
 			.antMatchers(HttpMethod.POST, "/api/user").permitAll()
 			.antMatchers(HttpMethod.PUT, "/api/user").permitAll() // TODO limit to principal
 			.antMatchers(HttpMethod.PUT, "/api/user/update").access("hasRole('ADMIN')")
+			.antMatchers(HttpMethod.GET, "/api/user").access("hasRole('ADMIN')")
 			.antMatchers(HttpMethod.GET, "/api/game").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/game").access("hasRole('ADMIN')")
 			.antMatchers(HttpMethod.PUT, "/api/game").access("hasRole('ADMIN')")
 			.antMatchers(HttpMethod.DELETE, "/api/game").access("hasRole('ADMIN')")
 			.antMatchers(HttpMethod.GET, "/api/purchase").access("hasRole('ADMIN')")
+			.antMatchers(HttpMethod.GET, "/api/purchase/game").access("hasRole('ADMIN')")
 			.antMatchers("/authenticate").permitAll() // anyone can create a JWT w/o needing to have a JWT first
 			.antMatchers(AUTH_WHITELIST).permitAll()
 			.anyRequest().authenticated() // all APIs, you have to have a user account
@@ -121,6 +123,8 @@ public class SecurityConfiguration {
 		return authConfig.getAuthenticationManager();
 	}
 
+	
+	
 	
 }
 

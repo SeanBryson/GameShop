@@ -52,24 +52,23 @@ public class PurchaseController {
 		return repo.findAll();
 	}
 	
-	@PostMapping("/id")
-	public ResponseEntity<?> purchaseGameById(@RequestParam(name="id") Long game_id,
-			@RequestParam(name="user_id") Long user_id) 
+	@PostMapping()
+	public ResponseEntity<?> purchaseGameById(@RequestParam(name="game_id") Long game_id) 
 		throws Exception {
 	
-		Purchase completed = service.purchaseGameId(game_id, user_id);
+		Purchase completed = service.purchaseGameIdAndQty(game_id, 1);
 		
 		return ResponseEntity.status(201).body(completed);
 		
 		
 	}
 	
-	@PostMapping("/id-qty")
+	@PostMapping("/qty")
 	public ResponseEntity<?> purchaseGameIdsAndQty(@RequestParam(name="game_id") Long game_id, 
-			@RequestParam(name="user_id") Long user_id, @RequestParam(name="qty") int qty) 
+			@RequestParam(name="qty") int qty) 
 		throws Exception {
 		
-		Purchase completed = service.purchaseGameIdAndQty(game_id, user_id, qty);
+		Purchase completed = service.purchaseGameIdAndQty(game_id, qty);
 		
 		return ResponseEntity.status(201).body(completed);
 		
@@ -86,15 +85,40 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("/user")
-	public ResponseEntity<?> getUserById(@RequestParam(name="user_id") Long user_id) 
+	public ResponseEntity<?> getUserById() 
 		throws Exception {
 	
-		List<Purchase> found = service.findByUserId(user_id);
+		List<Purchase> found = service.findByUser();
 		
 		return ResponseEntity.status(201).body(found);
 		
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> updatePurchase(@RequestBody Purchase purchase) 
+		throws Exception {
+	
+		Purchase updated = service.updatePurchase(purchase);
+		
+		return ResponseEntity.status(201).body(updated);
+		
 		
 	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> deletePurchaseById(@RequestParam(name="pur_id") Long id) 
+		throws Exception {
+	
+		Purchase deleted = service.deleteById(id);
+		
+		return ResponseEntity.status(201).body(deleted);
+		
+		
+	}
+	
+	
+	
+	
 	
 	
 	

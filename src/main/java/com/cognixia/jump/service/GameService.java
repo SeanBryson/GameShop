@@ -1,5 +1,6 @@
 package com.cognixia.jump.service;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,45 +29,29 @@ public class GameService {
 			existingGame.setEsrb(game.getEsrb());
 			existingGame.setPrice(game.getPrice());
 			existingGame.setQty(game.getQty());
-			existingGame.setUpdated(game.getUpdated());
+			existingGame.setUpdated(new Date());
 			existingGame.setPurchases(game.getPurchases());
 			
 			return repo.save(existingGame);
 		} else {
-			throw new ResourceNotFoundException(game.getName());
+			throw new ResourceNotFoundException(game.getName() + " was not found");
 		}
 	}
 
 
 	public Game deleteGameById(Long id) throws ResourceNotFoundException {
-	Optional<Game> selected = repo.findById(id);
-		
-		if (selected.isPresent()) {
+		Optional<Game> selected = repo.findById(id);
 			
-			Game toDelete = selected.get();
-			
-			repo.deleteById(toDelete.getId());
-			
-			return toDelete;
-		} else {
-			throw new ResourceNotFoundException("Game with id " + id.toString() + " not Found");
+			if (selected.isPresent()) {
+				
+				Game toDelete = selected.get();
+				
+				repo.deleteById(toDelete.getId());
+				
+				return toDelete;
+			} else {
+				throw new ResourceNotFoundException("Game with id " + id.toString() + " not Found");
+			}
 		}
-	}
-
-
-//	public Game purchaseGameById(Long id) throws ResourceNotFoundException {
-//		Optional<Game> selected = repo.findById(id);
-//		
-//		if (selected.isPresent()) {
-//			
-//			Game toPurchase = selected.get();
-//			
-//			repo.deleteById(toDelete.getId());
-//			
-//			return toDelete;
-//		} else {
-//			throw new ResourceNotFoundException("Game with id " + id.toString() + " not Found");
-//		}
-//	}
 
 }
