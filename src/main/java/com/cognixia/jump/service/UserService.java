@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.cognixia.jump.exception.ResourceNotFoundException;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.UserRepository;
 
@@ -26,6 +27,17 @@ public class UserService {
 			throw new UsernameNotFoundException(user.getUsername());
 		}
 	
+	}
+
+	public User deleteUserById(Long id) throws ResourceNotFoundException {
+		Optional<User> curUser = repo.findById(id);
+		
+		if (curUser.isPresent()) {
+			repo.deleteById(id);
+			return curUser.get();
+		} else {
+			throw new ResourceNotFoundException("User", id.toString());
+		}
 	}
 		
 }

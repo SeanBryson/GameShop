@@ -8,11 +8,13 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.exception.ResourceNotFoundException;
@@ -60,6 +62,15 @@ public class UserController {
 		User updated = service.updateUser(user);
 		
 		return ResponseEntity.status(200).body(updated);
+		
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> deleteUserById(@RequestParam(name="user_id") Long id) throws ResourceNotFoundException {
+		
+		User deleted = service.deleteUserById(id);
+		
+		return ResponseEntity.status(200).body(deleted);
 		
 	}
 	

@@ -66,7 +66,6 @@ public class SecurityConfiguration {
 		http.csrf().disable()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/api/user").permitAll()
-			.antMatchers(HttpMethod.PUT, "/api/user").permitAll() // TODO limit to principal
 			.antMatchers(HttpMethod.PUT, "/api/user/update").access("hasRole('ADMIN')")
 			.antMatchers(HttpMethod.GET, "/api/user").access("hasRole('ADMIN')")
 			.antMatchers(HttpMethod.GET, "/api/game").permitAll()

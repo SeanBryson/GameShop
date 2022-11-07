@@ -59,7 +59,7 @@ public class GameController {
 	
 
 	@DeleteMapping()
-	public ResponseEntity<?> deleteGameById(@RequestParam(name="id") Long id) 
+	public ResponseEntity<?> deleteGameById(@RequestParam(name="game_id") Long id) 
 			throws Exception {
 		
 		Game deleted = service.deleteGameById(id);
