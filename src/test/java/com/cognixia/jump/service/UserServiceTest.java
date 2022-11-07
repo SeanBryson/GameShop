@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 class UserServiceTest {
 
-	@Test
-	void testUpdateUser() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testUpdateUser() {
+//		fail("Not yet implemented");
+//	}
 
 }

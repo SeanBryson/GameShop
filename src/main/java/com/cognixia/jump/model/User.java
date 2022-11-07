@@ -33,17 +33,16 @@ public class User implements Serializable {
 		ROLE_USER, ROLE_ADMIN
 	}
 
-	@Schema(description = "Marketplace for Authenticated Users", example = "Amazon", required = true)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // incrementation will use auto_increment
 	@Column(name = "user_id")
 	private Long id;
 	
 	@Size(min = 1, max = 100)
-	@Column(updatable = false, nullable = false, unique = true, length = 25)
+	@Column(nullable = false, unique = true, length = 25)
 	private String username;
 
-	@Column(updatable = true, nullable = false, length = 255)
+	@Column(nullable = false, length = 255)
 	private String password;
 	
 	@Column(name="first_name", nullable = false)

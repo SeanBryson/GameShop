@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 
 class GameServiceTest {
 
-	@Test
-	void testUpdateStock() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDeleteGame() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDeleteGameById() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testUpdateStock() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testDeleteGame() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testDeleteGameById() {
+//		fail("Not yet implemented");
+//	}
 
 }
