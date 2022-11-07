@@ -1,0 +1,577 @@
+{
+	"info": {
+		"_postman_id": "57b4ca87-5837-4144-a5ef-fb1b1be7b270",
+		"name": "Marketplace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23940529"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"sponge1\",\r\n    \"password\": \"password\",\r\n    \"firstName\": \"SpongeBob\",\r\n    \"lastName\": \"SquarePants\",\r\n    \"email\": \"BobPants@email.com\",\r\n    \"phone\": \"555-555-5555\",\r\n    \"dob\": \"1990-05-05\",\r\n    \"role\": \"ROLE_USER\",\r\n    \"enabled\": true,\r\n    \"games\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/user",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJ0bWFuMSIsImV4cCI6MTY2OTI2NjczNywiaWF0IjoxNjY3Nzk1NTA4fQ.6RlHLV8IVO61RQ3L2nF8uat5WJgdfuTxbvBGZR-jbj0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{linkandport}}api/user",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Info (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2OTI1ODUwMiwiaWF0IjoxNjY3Nzg3MjczfQ.sXDYcrqFmNaaz3CbX8U2XslwIqSO-I7hq7PUpe0qoSY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"username\": \"cartman1\",\r\n    \"password\": \"password\",\r\n    \"firstName\": \"Eric\",\r\n    \"lastName\": \"Cartman\",\r\n    \"email\": \"cartman@email.com\",\r\n    \"phone\": \"555-555-5555\",\r\n    \"dob\": \"2010-05-05T00:00:00.000+00:00\",\r\n    \"role\": \"ROLE_USER\",\r\n    \"enabled\": true,\r\n    \"purchases\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/user/update",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2OTI1ODUwMiwiaWF0IjoxNjY3Nzg3MjczfQ.sXDYcrqFmNaaz3CbX8U2XslwIqSO-I7hq7PUpe0qoSY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"sponge1\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}authenticate",
+							"host": [
+								"{{linkandport}}authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove User By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{linkandport}}api/user/delete?user_id",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"user",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Game",
+			"item": [
+				{
+					"name": "Add Game (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2OTI1ODUwMiwiaWF0IjoxNjY3Nzg3MjczfQ.sXDYcrqFmNaaz3CbX8U2XslwIqSO-I7hq7PUpe0qoSY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ratchet & Clank: Rift Apart\",\r\n    \"esrb\": \"T\",\r\n    \"price\": 69.99,\r\n    \"qty\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/game",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"game"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Inventory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcG9uZ2UxIiwiZXhwIjoxNjY5MzA2ODAxLCJpYXQiOjE2Njc4MzU1NzJ9.N8OCL2fCd8Wlhv4EbGkOTNcQDSZIQlP1uoN-LKXAMG8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{linkandport}}api/game",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"game"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Inventory (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2OTMwNzI0NiwiaWF0IjoxNjY3ODM2MDE3fQ.0tdaDIZ7O1Hw4JCY_BOZLILdH0OftSqglSAnLpLhNoo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 27,\r\n        \"name\": \"Ratchet & Clank: Rift Apart\",\r\n        \"esrb\": \"E10+\",\r\n        \"price\": 69.99,\r\n        \"qty\": 5,\r\n        \"updated\": \"2022-11-07T04:20:46.644+00:00\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/game",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"game"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Game By Id (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2ODk4NTYyOSwiaWF0IjoxNjY3NTE0NDAwfQ.4ZzeC-PHaZ7GJUoJwvhdAcpnKpuvHlgc0solrNWoiWA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/game?game_id=5",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"game"
+							],
+							"query": [
+								{
+									"key": "game_id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchases",
+			"item": [
+				{
+					"name": "Purchase By Game Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJ0bWFuMSIsImV4cCI6MTY2OTI2NTc1MywiaWF0IjoxNjY3Nzk0NTI0fQ.cEBhC8e6ydfN61uV6BDR0vcRU9ssnXCUrbBfjg39Rq0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/purchase?game_id=27",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"purchase"
+							],
+							"query": [
+								{
+									"key": "game_id",
+									"value": "27"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Purchases (Admin)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJ0bWFuMSIsImV4cCI6MTY2OTI2NjczNywiaWF0IjoxNjY3Nzk1NTA4fQ.6RlHLV8IVO61RQ3L2nF8uat5WJgdfuTxbvBGZR-jbj0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/purchase",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purchase By Game Id & Qty",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJ0bWFuMSIsImV4cCI6MTY2OTI2NjczNywiaWF0IjoxNjY3Nzk1NTA4fQ.6RlHLV8IVO61RQ3L2nF8uat5WJgdfuTxbvBGZR-jbj0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/purchase/qty?game_id=1&qty=1",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"purchase",
+								"qty"
+							],
+							"query": [
+								{
+									"key": "game_id",
+									"value": "1"
+								},
+								{
+									"key": "qty",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Your Purchases",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJ0bWFuMSIsImV4cCI6MTY2OTI2NjczNywiaWF0IjoxNjY3Nzk1NTA4fQ.6RlHLV8IVO61RQ3L2nF8uat5WJgdfuTxbvBGZR-jbj0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{linkandport}}api/purchase/user",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"purchase",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purchases By Game Id (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJ0bWFuMSIsImV4cCI6MTY2OTI2NjczNywiaWF0IjoxNjY3Nzk1NTA4fQ.6RlHLV8IVO61RQ3L2nF8uat5WJgdfuTxbvBGZR-jbj0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{linkandport}}api/purchase/game?game_id=1",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"purchase",
+								"game"
+							],
+							"query": [
+								{
+									"key": "game_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Purchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2OTI2MDUzMywiaWF0IjoxNjY3Nzg5MzA0fQ.XXZL-ZXZBwoFk5YKfIehfqE8EQE0CjBh1fqihUvjHLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 1,\r\n        \"user\": {\r\n            \"id\": 1,\r\n            \"username\": \"sean1\",\r\n            \"password\": \"$2a$10$BJiccMmoAR8rxBVEP8qYVOcn0X.I/EEJlOmSMp6CPTksTMvE0gtlC\",\r\n            \"firstName\": \"Sean\",\r\n            \"lastName\": \"Bryson\",\r\n            \"email\": \"sean@email.com\",\r\n            \"phone\": \"205-555-7201\",\r\n            \"dob\": \"1992-05-26\",\r\n            \"role\": \"ROLE_USER\",\r\n            \"enabled\": true\r\n        },\r\n        \"game\": {\r\n            \"id\": 1,\r\n            \"name\": \"Elden Ring\",\r\n            \"esrb\": \"M\",\r\n            \"price\": 59.99,\r\n            \"qty\": 10,\r\n            \"updated\": \"2022-11-07T03:29:47.144+00:00\"\r\n        },\r\n        \"qty\": 2,\r\n        \"total\": 59.99,\r\n        \"time\": \"2022-11-07T03:27:24.856+00:00\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{linkandport}}api/purchase/update",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"purchase",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Purchase Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZWFuMSIsImV4cCI6MTY2OTI2NTM3MywiaWF0IjoxNjY3Nzk0MTQ0fQ.oOqs7UM0f2_2Tr8REu9pnGDxydgmpa88qgzMYrrDfAc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{linkandport}}api/purchase/delete?pur_id=6",
+							"host": [
+								"{{linkandport}}api"
+							],
+							"path": [
+								"purchase",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "pur_id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

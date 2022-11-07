@@ -49,9 +49,9 @@ public class Game implements Serializable {
 	private Date updated;
 	
 	//One to Many with Purchases
-	@JsonIgnoreProperties("game")
-	@OneToMany(mappedBy = "game",fetch = FetchType.EAGER)
-	private Set<Purchase> purchases = new HashSet<>();
+//	@JsonIgnoreProperties("game")
+//	@OneToMany(mappedBy = "game",fetch = FetchType.EAGER)
+//	private Set<Purchase> purchases = new HashSet<>();
 
 	
 	public Game() {
@@ -61,7 +61,7 @@ public class Game implements Serializable {
 		this.price = 0.0;
 		this.qty = 0;
 		this.updated = new Date();
-		this.purchases = null;
+//		this.purchases = null;
 	}
 
 	public Game(Long id, String name, String esrb, double price, int qty, Date updated, Set<Purchase> purchases) {
@@ -72,7 +72,7 @@ public class Game implements Serializable {
 		this.price = price;
 		this.qty = qty;
 		this.updated = updated;
-		this.purchases = purchases;
+//		this.purchases = purchases;
 	}
 
 	public Long getId() {
@@ -122,19 +122,20 @@ public class Game implements Serializable {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
+	
 
-	public Set<Purchase> getPurchases() {
-		return purchases;
-	}
-
-	public void setPurchases(Set<Purchase> purchases) {
-		this.purchases = purchases;
-	}
+//	public Set<Purchase> getPurchases() {
+//		return purchases;
+//	}
+//
+//	public void setPurchases(Set<Purchase> purchases) {
+//		this.purchases = purchases;
+//	}
 
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", name=" + name + ", esrb=" + esrb + ", price=" + price + ", qty=" + qty
-				+ ", updated=" + updated + ", purchases=" + purchases + "]";
+				+ ", updated=" + updated + "]";
 	}
 	
 }

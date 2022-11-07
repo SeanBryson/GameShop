@@ -30,7 +30,7 @@ public class GameService {
 			existingGame.setPrice(game.getPrice());
 			existingGame.setQty(game.getQty());
 			existingGame.setUpdated(new Date());
-			existingGame.setPurchases(game.getPurchases());
+//			existingGame.setPurchases(game.getPurchases());
 			
 			return repo.save(existingGame);
 		} else {
