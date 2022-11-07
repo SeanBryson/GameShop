@@ -34,6 +34,8 @@ import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.UserService;
 import com.cognixia.jump.util.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/purchase")
 public class PurchaseController {
@@ -52,6 +54,11 @@ public class PurchaseController {
 		return repo.findAll();
 	}
 	
+	@Operation(summary = "Purchase A Game Using Id", 
+			   description = "Purchase a game using the user id of the principal "
+			   		+ "logged in user and the game id passed as a request parameter. "
+			   		+ "Each purchase has a quantity, total price, time created/modified,"
+			   		+ "and unique id in addition to game id and unique id")
 	@PostMapping()
 	public ResponseEntity<?> purchaseGameById(@RequestParam(name="game_id") Long game_id) 
 		throws Exception {
@@ -63,6 +70,11 @@ public class PurchaseController {
 		
 	}
 	
+	@Operation(summary = "Purchase A Game Using Id And Qty", 
+			   description = "Purchase a game using the user id of the principal "
+			   		+ "logged in user and the game id and quantity passed as request parameters. "
+			   		+ "Each purchase has a quantity, total price, time created/modified,"
+			   		+ "and unique id in addition to game id and unique id.")
 	@PostMapping("/qty")
 	public ResponseEntity<?> purchaseGameIdsAndQty(@RequestParam(name="game_id") Long game_id, 
 			@RequestParam(name="qty") int qty) 
