@@ -32,6 +32,7 @@ public class GameService {
 			existingGame.setUpdated(new Date());
 //			existingGame.setPurchases(game.getPurchases());
 			
+			
 			return repo.save(existingGame);
 		} else {
 			throw new ResourceNotFoundException(game.getName() + " was not found");

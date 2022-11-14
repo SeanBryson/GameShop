@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -53,8 +50,12 @@ public class PurchaseService {
 			Date seventeen = cal.getTime();
 			System.out.println(dob.toString());
 			System.out.println(seventeen.toString());
+			
+			
 			// if their DOB occurs before 17 years ago
 			if (dob.compareTo(seventeen) < 0) {
+				
+				
 				Double price = gameBuy.getPrice();
 				Double total = qty * price;
 				

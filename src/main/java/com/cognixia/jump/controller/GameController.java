@@ -1,5 +1,7 @@
 package com.cognixia.jump.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.model.Game;
+import com.cognixia.jump.model.NameCompare;
+import com.cognixia.jump.model.QtyCompare;
+import com.cognixia.jump.model.EsrbCompare;
 import com.cognixia.jump.repository.GameRepository;
 import com.cognixia.jump.service.GameService;
 
@@ -35,7 +40,45 @@ public class GameController {
 			   		+ "last updated, and list previous purchases")
 	@GetMapping()
 	public List<Game> getGames() {
-		return repo.findAll();
+		List<Game> games = repo.findAll();
+		Collections.sort(games);
+		//games.sort(null);
+		return games;
+	}
+	
+	@GetMapping("/sortqty")
+	public List<Game> getGamesSortQty() {
+		List<Game> games = repo.findAll();
+		QtyCompare qtyCompare = new QtyCompare();
+        Collections.sort(games, qtyCompare);
+		return games;
+	}
+	
+	@GetMapping("/sortname")
+	public List<Game> getGamesSortName() {
+		List<Game> games = repo.findAll();
+		NameCompare nameCompare = new NameCompare();
+        Collections.sort(games, nameCompare);
+		return games;
+	}
+	
+	@GetMapping("/sortesrb")
+	public List<Game> getGamesSortEsrb() {
+		List<Game> games = repo.findAll();
+		EsrbCompare esrbCompare = new EsrbCompare();
+        Collections.sort(games, esrbCompare);
+		return games;
+	}
+	
+	@GetMapping("/sort")
+	public List<Game> getGamesSort() {
+		List<Game> games = repo.findAll();
+		// this method will not use our custom functionality for Esrb
+		// really only helpful for near duplicates
+		Collections.sort(games, Comparator.comparing(Game::getName)
+	            .thenComparing(Game::getEsrb)
+	            .thenComparing(Game::getQty));
+		return games;
 	}
 	
 	@PostMapping()

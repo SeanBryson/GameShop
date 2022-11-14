@@ -2,26 +2,21 @@ package com.cognixia.jump.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 @Entity
-public class Game implements Serializable {
+public class Game implements Serializable, Comparable<Game> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -133,9 +128,14 @@ public class Game implements Serializable {
 //	}
 
 	@Override
+	public int compareTo(Game g) {
+		return (int) (this.qty - g.qty);
+	}
+	
+	@Override
 	public String toString() {
 		return "Game [id=" + id + ", name=" + name + ", esrb=" + esrb + ", price=" + price + ", qty=" + qty
 				+ ", updated=" + updated + "]";
 	}
-	
+
 }
