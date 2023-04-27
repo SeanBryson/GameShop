@@ -1,4 +1,4 @@
-Marketplace With Security (test)
+Marketplace With Security
 
 Backend Restful eCommerce API With Security Using JWT
 
