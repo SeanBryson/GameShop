@@ -1,4 +1,4 @@
-Marketplace With Security
+# GameShop
 
 Backend Restful eCommerce API With Security Using JWT
 
